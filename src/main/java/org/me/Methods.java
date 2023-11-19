@@ -1,5 +1,7 @@
+package org.me;
 
 import java.io.*;
+import java.util.BitSet;
 
 
 public class Methods {
@@ -7,6 +9,17 @@ public class Methods {
     private File inputfile = null;
     private InputStream inputStream = null;
 
+
+    public BitSet byteToBit(byte[] bytelist){
+        BitSet bitSet = BitSet.valueOf(bytelist);
+
+        System.out.print("Bitset: ");
+        for(int i = 0; i < bitSet.length(); i++) {
+            System.out.print(((Boolean) bitSet.get(i)).compareTo(false));
+        }
+
+        return bitSet;
+    }
 
     public Methods(File f) throws FileNotFoundException {
         inputfile = f;

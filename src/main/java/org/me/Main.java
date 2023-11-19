@@ -1,6 +1,9 @@
+package org.me;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.BitSet;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,7 +13,7 @@ public class Main {
 
         //Setup
         try { //puting file into methods
-            f = new File("test.txt.machine");
+            f = new File("src/main/java/org/me/test.txt.machine");
             m = new Methods(f);
         } catch (FileNotFoundException e){e.printStackTrace();}
 
@@ -22,14 +25,7 @@ public class Main {
 
         System.out.println(m.printBytes(bytelist)); // checking bytes
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         BitSet bitList = m.byteToBit(bytelist);// gets bit list
-=======
-       //run through
-
-
->>>>>>> parent of b529a81 (byte to bit conversion)
 
 
         //TODO
@@ -89,12 +85,6 @@ public class Main {
         //  { "UDIV",    UDIV_inst,   0b10011010110 },
         //  { "UMULH",   UMULH_inst,  0b10011011110 }
         //};
-=======
-       //run through
-
-
-
->>>>>>> parent of b529a81 (byte to bit conversion)
 
     }
 }
