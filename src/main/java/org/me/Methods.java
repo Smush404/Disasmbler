@@ -49,4 +49,8 @@ public class Methods {
     protected File getInputfile() {
         return inputfile;
     }
+
+    public BitSet getOp(BitSet bitSet) {
+
+    }
 }
