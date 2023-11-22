@@ -50,7 +50,12 @@ public class Methods {
         return inputfile;
     }
 
-    public BitSet getOp(BitSet bitSet) {
-
+    /**
+     * takes in a bitset and then returns a string with the op-type and the op instruction
+     * @param bitSet
+     * @return String that gives the type of op and after dash is the op
+     */
+    public String getOp(BitSet bitSet) {
+        return "R - ADDI";
     }
 }
