@@ -29,7 +29,7 @@ public class Main {
 
         for(int i = 0; i < bitList.length() - 32; i = i + 32){
             BitSet temp = bitList.get(i, i + 32);
-            BitSet op = m.getOp(temp.get(0, 11));
+            String op = m.getType(temp.get(0, 11));
 
         }
 

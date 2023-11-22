@@ -51,11 +51,11 @@ public class Methods {
     }
 
     /**
-     * takes in a bitset and then returns a string with the op-type and the op instruction
+     * takes in a bitset and then returns a string with the op-type
      * @param bitSet
-     * @return String that gives the type of op and after dash is the op
+     * @return String that gives the type of op
      */
-    public String getOp(BitSet bitSet) {
+    public String getType(BitSet bitSet) {
         return "R - ADDI";
     }
 }
