@@ -32,117 +32,64 @@ public class Methods {
     public Methods(File f) throws FileNotFoundException {
         inputfile = f;
         inputStream = new FileInputStream(f);
-        buildArrays();
+        buildhash();
+
     }
 
-    private void buildArrays() {
-        ophash.put("AND", new Boolean[]{true, false, false, false, true, false, true, true, false, false, false});
-        ophash.put("ANDIS", new Boolean[]{true, false, false, true, false, false, false, true, false, false} ); //1001000100
-        ophash.put("ANDS");
-        ophash.put("B");
-        ophash.put("BL");
-        ophash.put("BR");
-        ophash.put("CBNZ");
-        ophash.put("CBZ");
-        ophash.put("DUMP");
-        ophash.put("EOR");
-        ophash.put("EORI");
-        ophash.put("FADDD");
-        ophash.put("FADDS");
-        ophash.put("FCMPD");
-        ophash.put("FCMPS");
-        ophash.put("ANDI");
-        ophash.put("FDIVD");
-        ophash.put("FDIVS");
-        ophash.put("FMULD");
-        ophash.put("FMULS");
-        ophash.put("FSUBD");
-        ophash.put("FSUBS");
-        ophash.put("HALT");
-        ophash.put("LDUR");
-        ophash.put("LDURB");
-        ophash.put("LDURD");
-        ophash.put("LDURH");
-        ophash.put("LDURS");
-        ophash.put("LDURSW");
-        ophash.put("LSL");
-        ophash.put("LSR");
-        ophash.put("MUL");
-        ophash.put("ORR");
-        ophash.put("ORRI");
-        ophash.put("PRNL");
-        ophash.put("PRNT");
-        ophash.put("SDIV");
-        ophash.put("SMULH");
-        ophash.put("STUR");
-        ophash.put("STURB");
-        ophash.put("STURD");
-        ophash.put("STURH");
-        ophash.put("STURS");
-        ophash.put("STURSW");
-        ophash.put("SUB");
-        ophash.put("SUBI");
-        ophash.put("SUBIS");
-        ophash.put("SUBS");
-        ophash.put("UDIV");
-        ophash.put("UMULH");
-
-        Boolean[] b = new Boolean[]{true, false, false, false, true, false, true, true, false, false, false};
-        opCodes.add(b);
-        opCodes
-//        opCodes.add(1001000100L);
-//        opCodes.add(1011000100L);
-//        opCodes.add(10101011000L);
-//        opCodes.add(10001010000L);
-//        opCodes.add(1001001000L);
-//        opCodes.add(1111001000L);
-//        opCodes.add(1110101000L);
-//        opCodes.add(000101L);
-//        opCodes.add(100101L);
-//        opCodes.add(11010110000L);
-//        opCodes.add(10110101L);
-//        opCodes.add(10110100L);
-//        opCodes.add(11111111110L);
-//        opCodes.add(11001010000L);
-//        opCodes.add(1101001000L);
-//        opCodes.add(0b00011110011L);
-//        opCodes.add(00011110001L);
-//        opCodes.add(00011110011L);
-//        opCodes.add(00011110001L);
-//        opCodes.add(00011110011L);
-//        opCodes.add(00011110001L);
-//        opCodes.add(00011110011L);
-//        opCodes.add(00011110001L);
-//        opCodes.add(00011110011L);
-//        opCodes.add(00011110001L);
-//        opCodes.add(11111111111L);
-//        opCodes.add(11111000010L);
-//        opCodes.add(00111000010L);
-//        opCodes.add(11111100010L);
-//        opCodes.add(01111000010L);
-//        opCodes.add(10111100010L);
-//        opCodes.add(10111000100L);
-//        opCodes.add(11010011011L);
-//        opCodes.add(11010011010L);
-//        opCodes.add(10011011000L);
-//        opCodes.add(10101010000L);
-//        opCodes.add(1011001000L);
-//        opCodes.add(11111111100L);
-//        opCodes.add(11111111101L);
-//        opCodes.add(10011010110L);
-//        opCodes.add(10011011010L);
-//        opCodes.add(11111000000L);
-//        opCodes.add(00111000000L);
-//        opCodes.add(11111100000L);
-//        opCodes.add(01111000000L);
-//        opCodes.add(10111100000L);
-//        opCodes.add(10111000000L);
-//        opCodes.add(11001011000L);
-//        opCodes.add(1101000100L);
-//        opCodes.add(1111000100L);
-//        opCodes.add(11101011000L);
-//        opCodes.add(10011010110L);
-//        opCodes.add(10011011110L);
+    private void buildhash() {
+        ophash.put("ADD", new Boolean[]{true, false, false, false, true, false, true, true, false, false, false});//"10001011000" R
+        ophash.put("ADDIS", new Boolean[]{true, false, true, true, false, false, false, true, false, false});// "1011000100" I
+        ophash.put("ADDS", new Boolean[]{true, false, true, false, true, false, true, true, false, false});// "10101011000" R
+        ophash.put("AND", new Boolean[]{true, false, false, false, true, false, true, false, false, false});// "10001010000" R
+        ophash.put("ANDI", new Boolean[]{true, false, false, true, false, false, true, false, false, false});// "1001001000" I
+        ophash.put("ANDIS", new Boolean[]{true, true, true, true, false, false, true, false, false, false});// "1111001000" I
+        ophash.put("ANDS", new Boolean[]{true, true, true, false, true, false, true, false, false, false});// "1110101000" R
+        ophash.put("B", new Boolean[]{false, false, false, true, false, true});// "000101" B
+        ophash.put("BL", new Boolean[]{true, false, true, false, true, true});// "100101" B
+        ophash.put("BR", new Boolean[]{true, true, false, true, false, true, true, false, false, false});// "11010110000" R
+        ophash.put("CBNZ", new Boolean[]{true, false, true, true, false, true, false, false, true});// "10110101" CB
+        ophash.put("CBZ", new Boolean[]{true, false, true, true, false, true, false, false, false});// "10110100" CB
+        ophash.put("DUMP", new Boolean[]{true, true, true, true, true, true, true, true, true, false});// "11111111110" R
+        ophash.put("EOR", new Boolean[]{true, true, false, false, true, false, true, false, false, false});// "11001010000" R
+        ophash.put("EORI", new Boolean[]{true, true, false, true, false, false, true, false, false, false});// "1101001000" I
+        ophash.put("FADDD", new Boolean[]{false, false, false, true, true, true, true, false, false, true, true});// "00011110011" R
+        ophash.put("FADDS", new Boolean[]{false, false, false, true, true, true, true, false, false, false, true});// "00011110001" R
+        ophash.put("FCMPD", new Boolean[]{false, false, false, true, true, true, true, false, false, true, true});// "00011110011" R
+        ophash.put("FCMPS", new Boolean[]{false, false, false, true, true, true, true, false, false, false, true});// "00011110001" R
+        ophash.put("FDIVD", new Boolean[]{false, false, false, true, true, true, true, false, false, true, true});// "00011110011" R
+        ophash.put("FDIVS", new Boolean[]{false, false, false, true, true, true, true, false, false, false, true});// "00011110001"R
+        ophash.put("FMULD", new Boolean[]{false, false, false, true, true, true, true, false, false, true, true});// "00011110011"R
+        ophash.put("FMULS", new Boolean[]{false, false, false, true, true, true, true, false, false, false, true});// "00011110001"R
+        ophash.put("FSUBD", new Boolean[]{false, false, false, true, true, true, true, false, false, true, true});// "00011110011"R
+        ophash.put("FSUBS", new Boolean[]{false, false, false, true, true, true, true, false, false, false, true});// "00011110001"R
+        ophash.put("HALT", new Boolean[]{true, true, true, true, true, true, true, true, true, true});// "11111111111" R
+        ophash.put("LDUR", new Boolean[]{true, true, true, true, true, false, false, false, false, true, false});// "11111000010" D
+        ophash.put("LDURB", new Boolean[]{false, false, true, true, true, false, false, false, false, true, false});// "00111000010" D
+        ophash.put("LDURD", new Boolean[]{true, true, true, true, true, true, true, false, false, false, false});// "11111100010" R
+        ophash.put("LDURH", new Boolean[]{false, true, true, true, true, false, false, false, false, true, false});// "01111000010" D
+        ophash.put("LDURS", new Boolean[]{true, false, true, true, true, true, false, false, false, true, false});// "10111100010" R
+        ophash.put("LDURSW", new Boolean[]{true, false, true, true, true, true, false, false, true, false, false});// "10111000100" D
+        ophash.put("LSL", new Boolean[]{true, true, false, true, false, false, true, true, false, true, true});// "11010011011" R
+        ophash.put("LSR", new Boolean[]{true, true, false, true, false, false, true, true, false, true, false});// "11010011010" R
+        ophash.put("MUL", new Boolean[]{true, false, false, true, true, false, true, true, false, false, false});// "10011011000" R
+        ophash.put("ORR", new Boolean[]{true, false, true, false, true, false, true, false, false, false, false});// "10101010000" R
+        ophash.put("ORRI", new Boolean[]{true, false, true, true, false, false, true, false, false, false, false});// "1011001000" I
+        ophash.put("PRNL", new Boolean[]{true, true, true, true, true, true, true, true, true, false, false});// "11111111100" R
+         ophash.put("PRNT",  new Boolean[]{true, true, true, true,true,true,true,true,true,false,true,});//0b11111111101 R
+         ophash.put("SDIV",  new Boolean[]{true, false, false, true, true, false, true, false, true, true, false}); //0b10011010110 R
+         ophash.put("SMULH",  new Boolean[]{true, false, false, true, true, false, true, true, false, true, false}); //0b10011011010 R
+         ophash.put("STUR",  new Boolean[]{true, true, true, true, true, false, false, false, false, false, false}); //0b11111000000 R
+        ophash.put("STURB", new Boolean[]{false, false, true, false, false, false, false, false, false, false, false});// "0b00111000000" D
+        ophash.put("STURD", new Boolean[]{true, true, true, false, false, false, false, false, false, false, false});// "0b11111100000" R
+        ophash.put("STURH", new Boolean[]{false, false, false, false, false, false, false, false, false, false, false});// "0b01111000000" D
+        ophash.put("STURS", new Boolean[]{false, false, false, false, false, false, false, false, false, false, false});// "0b10111100000" R
+        ophash.put("STURSW", new Boolean[]{false, false, false, false, false, false, false, false, false, false, false});// "0b10111000000" D
+        ophash.put("SUB", new Boolean[]{true, true, false, false, true, false, false, false, false, false, false});// "0b11001011000" R
+        ophash.put("SUBI", new Boolean[]{true, true, true, false, true, false, false, false, false, false, false});// "0b1101000100" I
+        ophash.put("SUBIS", new Boolean[]{true, true, true, false, false, false, false, false, false, false, false});// "0b1111000100" I
+        ophash.put("SUBS", new Boolean[]{true, true, true, false, false, false, false, false, false, false, false});// "0b11101011000" R
+        ophash.put("UDIV", new Boolean[]{true, false, false, true, false, false, false, false, false, false, false});// "0b10011010110" R
+        ophash.put("UMULH", new Boolean[]{true, false, false, true, false, false, false, false, false, false, false});// "0b10011011110" R
     }
 
 
