@@ -119,8 +119,7 @@ public class Methods {
 
         Boolean[] boolList = new Boolean[11];
 
-        for(int i = 0; i < bitSet.length(); i++) {
-
+        for(int i = 0; i < 11; i++) {
             if(bitSet.get(i)) { boolList[i] = true;}
             else{boolList[i] = false;}
         }
@@ -129,9 +128,15 @@ public class Methods {
 
         for(int i = 0; i < boolList.length; i++)
         {
-            System.out.print(boolList[i]);
+            System.out.print(boolList[i] + " ");
         }
 
-        return "R";
+        if(ophashB.containsValue(boolList)){return "B";}
+        if(ophashR.containsValue(boolList)){return "R";}
+        if(ophashI.containsValue(boolList)){return "I";}
+        if(ophashD.containsValue(boolList)){return "D";}
+        if(ophashCB.containsValue(boolList)){return "CB";}
+
+        return "Not an OP code";
     }
 }
