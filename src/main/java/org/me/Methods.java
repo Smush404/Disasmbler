@@ -23,7 +23,7 @@ public class Methods {
         for(int i = 0; i < bitSet.length(); i++) {
             System.out.print(((Boolean) bitSet.get(i)).compareTo(false));
         }
-
+        System.out.println();
         return bitSet;
     }
 
@@ -124,6 +124,8 @@ public class Methods {
             if(bitSet.get(i)) { boolList[i] = true;}
             else{boolList[i] = false;}
         }
+
+        System.out.print("\n");
 
         for(int i = 0; i < boolList.length; i++)
         {

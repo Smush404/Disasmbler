@@ -27,9 +27,9 @@ public class Main {
 
         BitSet bitList = m.byteToBit(bytelist);// gets bit list
 
-        for(int i = 0; i < bitList.length(); i = i + 32){
-            BitSet temp = bitList.get(i, i + 32);
-            String op = m.getType(temp.get(0, 11));
+        for(int i = 0; i < bitList.length() - 33; i = i + 33){
+            BitSet temp = bitList.get(i, i + 33);
+            String op = m.getType(temp.get(0, 12));
             System.out.println(op);
         }
 
