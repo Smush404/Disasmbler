@@ -1,12 +1,9 @@
 package org.me;
 
 import java.io.*;
-import java.math.BigInteger;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
-import java.util.Map;
-
 
 public class Methods {
 
@@ -34,7 +31,6 @@ public class Methods {
         inputfile = f;
         inputStream = new FileInputStream(f);
         buildhashs();
-
     }
 
     private void buildhashs() {
@@ -97,7 +93,6 @@ public class Methods {
 
     protected byte[] reader() throws IOException {
 
-
         if(!inputfile.exists()){return null;}
 
         return inputStream.readAllBytes();
@@ -113,18 +108,28 @@ public class Methods {
         return sb.toString();
     }
 
-    //Getter + Setter
-
-    protected File getInputfile() {
-        return inputfile;
-    }
-
     /**
      * takes in a bitset and then returns a string with the op-type
      * @param bitSet
      * @return String that gives the type of op
      */
     public String getType(BitSet bitSet) {
-        return "R - ADDI";
+
+        if(bitSet.isEmpty()){return "Empty Bitset";}
+
+        Boolean[] boolList = new Boolean[11];
+
+        for(int i = 0; i < bitSet.length(); i++) {
+
+            if(bitSet.get(i)) { boolList[i] = true;}
+            else{boolList[i] = false;}
+        }
+
+        for(int i = 0; i < boolList.length; i++)
+        {
+            System.out.print(boolList[i]);
+        }
+
+        return "R";
     }
 }
