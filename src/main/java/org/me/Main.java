@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.BitSet;
+import java.util.StringJoiner;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +16,7 @@ public class Main {
 
         //Setup
         try { //puting file into methods
-            f = new File("src/main/java/org/me/test.txt.machine");
+            f = new File("src/main/java/org/me/testB.txt.machine");
             m = new Methods(f);
         } catch (FileNotFoundException e){System.out.println("No file found");}
 
@@ -29,11 +30,28 @@ public class Main {
 
         BitSet bitList = m.byteToBit(bytelist);// gets bit list
 
-        System.out.println(bitList.length());
+        StringBuilder sb = new StringBuilder();
+        String op = null;
         for(int i = 0; i < bitList.length(); i = i + 33){
             BitSet temp = bitList.get(i, i + 33);
-            String op = m.getType(temp.get(0, 12));
+            op = m.getType(temp.get(0, 12));
             System.out.println(op);
+        }
+
+        try{op.equals(null);}
+        catch (NullPointerException e){System.out.println("ERROR: OP code not found");e.printStackTrace();System.exit(1);}
+
+        switch (op){
+            case "R":
+                break;
+            case "B":
+                break;
+            case "I":
+                break;
+            case "CB":
+                break;
+            case "D":
+                break;
         }
 
     }

@@ -156,7 +156,7 @@ public class Methods extends BitSet {
         if (containsValueInHashMap(ophashD, boolList)) {return "D";}
         if (containsValueInHashMap(ophashCB, boolList)) {return "CB";}
     
-        return "Not an OP code";
+        return null;
     }
     private boolean containsValueInHashMap(HashMap<String, Boolean[]> hashMap, Boolean[] targetValue) {
         for (Boolean[] value : hashMap.values()) {
