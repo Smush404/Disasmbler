@@ -16,7 +16,7 @@ public class Main {
 
         //Setup
         try { //puting file into methods
-            f = new File("src/main/java/org/me/testB.txt.machine");
+            f = new File("src/main/java/org/me/test.txt.machine");
             m = new Methods(f);
         } catch (FileNotFoundException e){System.out.println("No file found");}
 
