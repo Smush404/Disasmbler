@@ -114,29 +114,36 @@ public class Methods {
      * @return String that gives the type of op
      */
     public String getType(BitSet bitSet) {
-
-        if(bitSet.isEmpty()){return "Empty Bitset";}
-
-        Boolean[] boolList = new Boolean[11];
-
-        for(int i = 0; i < 11; i++) {
-            if(bitSet.get(i)) { boolList[i] = true;}
-            else{boolList[i] = false;}
+        if (bitSet.isEmpty()) {
+            return "Empty Bitset";
         }
-
+    
+        Boolean[] boolList = new Boolean[11];
+    
+        for (int i = 0; i < 11; i++) {
+            boolList[i] = bitSet.get(i);
+        }
+    
         System.out.print("\n");
-
-        for(int i = 0; i < boolList.length; i++)
-        {
+    
+        for (int i = 0; i < boolList.length; i++) {
             System.out.print(boolList[i] + " ");
         }
-
-        if(ophashB.containsValue(boolList)){return "B";}
-        if(ophashR.containsValue(boolList)){return "R";}
-        if(ophashI.containsValue(boolList)){return "I";}
-        if(ophashD.containsValue(boolList)){return "D";}
-        if(ophashCB.containsValue(boolList)){return "CB";}
-
+    
+        if (containsValueInHashMap(ophashB, boolList)) {return "B";}
+        if (containsValueInHashMap(ophashR, boolList)) {return "R";}
+        if (containsValueInHashMap(ophashI, boolList)) {return "I";}
+        if (containsValueInHashMap(ophashD, boolList)) {return "D";}
+        if (containsValueInHashMap(ophashCB, boolList)) {return "CB";}
+    
         return "Not an OP code";
+    }
+    private boolean containsValueInHashMap(HashMap<String, Boolean[]> hashMap, Boolean[] targetValue) {
+        for (Boolean[] value : hashMap.values()) {
+            if (Arrays.equals(value, targetValue)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
