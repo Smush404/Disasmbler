@@ -1,8 +1,8 @@
 package org.me;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
@@ -18,8 +18,20 @@ public class Methods extends BitSet {
     private HashMap<String, Boolean[]> ophashB = new HashMap<>();
     private HashMap<String, Boolean[]> ophashCB = new HashMap<>();
 
+    private static BitSet convertLittleToBigEndian(BitSet littleEndianBitSet) {
+        int size = littleEndianBitSet.length();
+        BitSet bigEndianBitSet = new BitSet(size);
 
-    public BitSet byteToBit(byte @NotNull [] bytelist){
+        for (int i = 0; i < size; i++) {
+            bigEndianBitSet.set(size - 1 - i, littleEndianBitSet.get(i));
+        }
+
+        return bigEndianBitSet;
+    }
+
+
+
+    public BitSet byteToBit(byte[] bytelist){
 
         BitSet bitSet = new BitSet(bytelist.length * 8);
 
@@ -138,29 +150,79 @@ public class Methods extends BitSet {
      * @return String that gives the type of op
      */
     public String getType(BitSet bitSet) {
-        if (bitSet.isEmpty()) {return "Empty Bitset";}
+        if (bitSet.isEmpty()) {
+            return "Empty BitSet";
+        }
     
-        Boolean[] boolList = new Boolean[10];
+        int size = Math.min(32, bitSet.length()); // Consider only the first 32 bits
+        Boolean[] boolList = new Boolean[size];
     
-        for (int i = 0; i < boolList.length; i++) {boolList[i] = bitSet.get(i);}
+        for (int i = 0; i < size; i++) {
+            boolList[i] = bitSet.get(i);
+        }
     
         System.out.print("\n");
     
-        for (int i = 0; i < boolList.length; i++) {
+        for (int i = 0; i < size; i++) {
             System.out.print(boolList[i] + " ");
         }
     
-        if (containsValueInHashMap(ophashB, boolList)) {return "B";}
-        if (containsValueInHashMap(ophashR, boolList)) {return "R";}
-        if (containsValueInHashMap(ophashI, boolList)) {return "I";}
-        if (containsValueInHashMap(ophashD, boolList)) {return "D";}
-        if (containsValueInHashMap(ophashCB, boolList)) {return "CB";}
-    
-        return "Not an OP code";
+        String type = findMatchingType(boolList);
+        return type != null ? type : "Not an OP code";
     }
+    
+    private String findMatchingType(Boolean[] boolList) {
+        if (containsValueInHashMap(ophashB, boolList)) {
+            return "B";
+        }
+        if (containsValueInHashMap(ophashR, boolList)) {
+            return "R";
+        }
+        if (containsValueInHashMap(ophashI, boolList)) {
+            return "I";
+        }
+        if (containsValueInHashMap(ophashD, boolList)) {
+            return "D";
+        }
+        if (containsValueInHashMap(ophashCB, boolList)) {
+            return "CB";
+        }
+        return null;
+    }
+    Boolean[] newTargetValue;
     private boolean containsValueInHashMap(HashMap<String, Boolean[]> hashMap, Boolean[] targetValue) {
+        Boolean[] newTargetValue;
+    
+        if (hashMap == ophashB) {
+            newTargetValue = new Boolean[6]; // Assuming the length is always 6 for ophashB
+            for (int i = 0; i < 6; i++) {
+                newTargetValue[i] = targetValue[i];
+            }
+        } 
+        else if (hashMap == ophashR || hashMap == ophashD) {
+            newTargetValue = new Boolean[10]; // Assuming the length is always 6 for ophashB
+            for (int i = 0; i < 6; i++) {
+                newTargetValue[i] = targetValue[i];
+            }
+        }
+        if (hashMap == ophashCB) {
+            newTargetValue = new Boolean[8]; // Assuming the length is always 6 for ophashB
+            for (int i = 0; i < 6; i++) {
+                newTargetValue[i] = targetValue[i];
+            }
+        }
+        // if (hashMap == ophashIW) {
+        //     newTargetValue = new Boolean[9]; // Assuming the length is always 6 for ophashB
+        //     for (int i = 0; i < 6; i++) {
+        //         newTargetValue[i] = targetValue[i];
+        //     }
+        // }
+        else {
+            newTargetValue = targetValue;
+        }
+    
         for (Boolean[] value : hashMap.values()) {
-            if (Arrays.equals(value, targetValue)) {
+            if (Arrays.equals(value, newTargetValue)) {
                 return true;
             }
         }
