@@ -1,11 +1,13 @@
 package org.me;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
 
-public class Methods {
+public class Methods extends BitSet {
 
     private File inputfile = null;
     private InputStream inputStream = null;
@@ -16,14 +18,37 @@ public class Methods {
     private HashMap<String, Boolean[]> ophashB = new HashMap<>();
     private HashMap<String, Boolean[]> ophashCB = new HashMap<>();
 
+    private static BitSet convertLittleToBigEndian(BitSet littleEndianBitSet) {
+        int size = littleEndianBitSet.length();
+        BitSet bigEndianBitSet = new BitSet(size);
+
+        for (int i = 0; i < size; i++) {
+            bigEndianBitSet.set(size - 1 - i, littleEndianBitSet.get(i));
+        }
+
+        return bigEndianBitSet;
+    }
+
+
+
     public BitSet byteToBit(byte[] bytelist){
-        BitSet bitSet = BitSet.valueOf(bytelist);
+
+        BitSet bitSet = new BitSet(bytelist.length * 8);
+
+        int bitIndex = 0;
+        for (int i = 0; i < bytelist.length; i++) {
+            byte currentByte = bytelist[i];
+            for (int j = 7; j >= 0; j--) {
+                bitSet.set(bitIndex++, (currentByte & (1 << j)) != 0);
+            }
+        }
 
         System.out.print("Bitset: ");
         for(int i = 0; i < bitSet.length(); i++) {
             System.out.print(((Boolean) bitSet.get(i)).compareTo(false));
         }
-        System.out.println();
+
+        System.out.println("\nBitset: 10010001000000000000010000000000\n");
         return bitSet;
     }
 
