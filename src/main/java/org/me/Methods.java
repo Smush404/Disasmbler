@@ -18,6 +18,8 @@ public class Methods extends BitSet {
     private HashMap<String, Boolean[]> ophashB = new HashMap<>();
     private HashMap<String, Boolean[]> ophashCB = new HashMap<>();
 
+    //TODO add IW tpyes
+
 
     public BitSet byteToBit(byte @NotNull [] bytelist){
 
@@ -113,8 +115,6 @@ public class Methods extends BitSet {
         ophashR.put("UMULH", new Boolean[]{true, false, false, true, false, false, false, false, false, false, false});// "0b10011011110" R
     }
 
-
-
     protected byte[] reader() throws IOException {
 
         if(!inputfile.exists()){return null;}
@@ -158,6 +158,7 @@ public class Methods extends BitSet {
     
         return null;
     }
+
     private boolean containsValueInHashMap(HashMap<String, Boolean[]> hashMap, Boolean[] targetValue) {
         for (Boolean[] value : hashMap.values()) {
             if (Arrays.equals(value, targetValue)) {
@@ -166,5 +167,6 @@ public class Methods extends BitSet {
         }
         return false;
     }
+
 
 }
