@@ -44,23 +44,33 @@ public class Methods extends BitSet {
         }
 
         System.out.print("Bitset: ");
-        for(int i = 0; i < bitSet.length(); i++) {
+        for(int i = 0; i < 32; i++) {
             System.out.print(((Boolean) bitSet.get(i)).compareTo(false));
         }
 
-        System.out.println("\nBitset: 10010001000000000000010000000000\n");
         return bitSet;
     }
 
+    /**
+     *
+     * @param f file that gets saved and then builds hashes
+     * @throws FileNotFoundException
+     */
     public Methods(File f) throws FileNotFoundException {
         inputfile = f;
         inputStream = new FileInputStream(f);
         buildhashs();
     }
 
+    public Methods(String path) throws FileNotFoundException {
+        inputfile = new File(path);
+        inputStream = new FileInputStream(inputfile);
+        buildhashs();
+    }
+
     private void buildhashs() {
         ophashR.put("ADD", new Boolean[]{true, false, false, false, true, false, true, true, false, false, false});//"10001011000" R
-        ophashI.put("ADDI", new Boolean[]{true, false, false, true, false, false, true, false, false, false});// "1001000100" I
+        ophashI.put("ADDI", new Boolean[]{true, false, false, true, false, false, false, true, false, false});// "1001000100" I
         ophashI.put("ADDIS", new Boolean[]{true, false, true, true, false, false, false, true, false, false});// "1011000100" I
         ophashR.put("ADDS", new Boolean[]{true, false, true, false, true, false, true, true, false, false});// "10101011000" R
         ophashR.put("AND", new Boolean[]{true, false, false, false, true, false, true, false, false, false});// "10001010000" R
@@ -142,9 +152,9 @@ public class Methods extends BitSet {
     public String getType(BitSet bitSet) {
         if (bitSet.isEmpty()) {return "Empty Bitset";}
     
-        Boolean[] boolList = new Boolean[11];
+        Boolean[] boolList = new Boolean[10];
     
-        for (int i = 0; i < 11; i++) {boolList[i] = bitSet.get(i);}
+        for (int i = 0; i < boolList.length; i++) {boolList[i] = bitSet.get(i);}
     
         System.out.print("\n");
     
