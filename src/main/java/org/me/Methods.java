@@ -35,6 +35,7 @@ public class Methods {
 
     private void buildhashs() {
         ophashR.put("ADD", new Boolean[]{true, false, false, false, true, false, true, true, false, false, false});//"10001011000" R
+        ophashI.put("ADDI", new Boolean[]{true, false, false, true, false, false, true, false, false, false});// "1001000100" I
         ophashI.put("ADDIS", new Boolean[]{true, false, true, true, false, false, false, true, false, false});// "1011000100" I
         ophashR.put("ADDS", new Boolean[]{true, false, true, false, true, false, true, true, false, false});// "10101011000" R
         ophashR.put("AND", new Boolean[]{true, false, false, false, true, false, true, false, false, false});// "10001010000" R
@@ -114,15 +115,11 @@ public class Methods {
      * @return String that gives the type of op
      */
     public String getType(BitSet bitSet) {
-        if (bitSet.isEmpty()) {
-            return "Empty Bitset";
-        }
+        if (bitSet.isEmpty()) {return "Empty Bitset";}
     
         Boolean[] boolList = new Boolean[11];
     
-        for (int i = 0; i < 11; i++) {
-            boolList[i] = bitSet.get(i);
-        }
+        for (int i = 0; i < 11; i++) {boolList[i] = bitSet.get(i);}
     
         System.out.print("\n");
     
@@ -146,4 +143,5 @@ public class Methods {
         }
         return false;
     }
+
 }

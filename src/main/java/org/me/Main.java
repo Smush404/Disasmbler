@@ -1,6 +1,7 @@
 package org.me;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.BitSet;
@@ -10,10 +11,11 @@ public class Main {
 
         File f;
         Methods m = null;
+        
 
         //Setup
         try { //puting file into methods
-            f = new File("src/main/java/org/me/test.txt.machine");
+            f = new File("Disasmbler/src/main/java/org/me/test.txt.machine");
             m = new Methods(f);
         } catch (FileNotFoundException e){System.out.println("No file found");}
 
