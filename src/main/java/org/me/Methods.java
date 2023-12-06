@@ -1,8 +1,8 @@
 package org.me;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
@@ -18,20 +18,8 @@ public class Methods extends BitSet {
     private HashMap<String, Boolean[]> ophashB = new HashMap<>();
     private HashMap<String, Boolean[]> ophashCB = new HashMap<>();
 
-    private static BitSet convertLittleToBigEndian(BitSet littleEndianBitSet) {
-        int size = littleEndianBitSet.length();
-        BitSet bigEndianBitSet = new BitSet(size);
 
-        for (int i = 0; i < size; i++) {
-            bigEndianBitSet.set(size - 1 - i, littleEndianBitSet.get(i));
-        }
-
-        return bigEndianBitSet;
-    }
-
-
-
-    public BitSet byteToBit(byte[] bytelist){
+    public BitSet byteToBit(byte @NotNull [] bytelist){
 
         BitSet bitSet = new BitSet(bytelist.length * 8);
 
