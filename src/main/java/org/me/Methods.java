@@ -167,27 +167,13 @@ public class Methods extends BitSet {
             System.out.print(boolList[i] + " ");
         }
     
-        String type = findMatchingType(boolList);
-        return type != null ? type : "Not an OP code";
-    }
+        if (containsValueInHashMap(ophashB, boolList)) {return "B";}
+        if (containsValueInHashMap(ophashR, boolList)) {return "R";}
+        if (containsValueInHashMap(ophashI, boolList)) {return "I";}
+        if (containsValueInHashMap(ophashD, boolList)) {return "D";}
+        if (containsValueInHashMap(ophashCB, boolList)) {return "CB";}
     
-    private String findMatchingType(Boolean[] boolList) {
-        if (containsValueInHashMap(ophashB, boolList)) {
-            return "B";
-        }
-        if (containsValueInHashMap(ophashR, boolList)) {
-            return "R";
-        }
-        if (containsValueInHashMap(ophashI, boolList)) {
-            return "I";
-        }
-        if (containsValueInHashMap(ophashD, boolList)) {
-            return "D";
-        }
-        if (containsValueInHashMap(ophashCB, boolList)) {
-            return "CB";
-        }
-        return null;
+        return "Not an OP code";
     }
     Boolean[] newTargetValue;
     private boolean containsValueInHashMap(HashMap<String, Boolean[]> hashMap, Boolean[] targetValue) {
