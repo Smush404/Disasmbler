@@ -48,8 +48,8 @@ public class Main {
 
             switch (op) {
                 case "R":
-                    sb.append(m.getOP(codeLine.get(0, 12)));
-                    sb.append(m.bitToReg(codeLine.get(12, 17)));
+                    // sb.append(m.getOP(codeLine.get(0, 12)));
+                    // sb.append(m.bitToReg(codeLine.get(12, 17)));
                     break;
                 case "B":
                     break;

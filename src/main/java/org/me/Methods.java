@@ -69,7 +69,7 @@ public class Methods extends BitSet {
     }
 
     private void buildhashs() {
-        ophashR.put("ADD", new Boolean[]{true, false, false, false, true, false, true, true, false, false, false});//"10001011000" R
+        ophashR.put("ADD", new Boolean[]{true, false, false, false, true, false, true, true, false, false, false}); //"10001011000" R
         ophashI.put("ADDI", new Boolean[]{true, false, false, true, false, false, false, true, false, false});// "1001000100" I
         ophashI.put("ADDIS", new Boolean[]{true, false, true, true, false, false, false, true, false, false});// "1011000100" I
         ophashR.put("ADDS", new Boolean[]{true, false, true, false, true, false, true, true, false, false});// "10101011000" R
@@ -155,15 +155,15 @@ public class Methods extends BitSet {
         }
     
         int size = Math.min(32, bitSet.length()); // Consider only the first 32 bits
-        Boolean[] boolList = new Boolean[size];
+        Boolean[] boolList = new Boolean[10];
     
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < 10; i++) {
             boolList[i] = bitSet.get(i);
         }
     
         System.out.print("\n");
     
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.print(boolList[i] + " ");
         }
     
