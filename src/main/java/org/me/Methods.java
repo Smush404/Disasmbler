@@ -191,7 +191,7 @@ public class Methods extends BitSet {
                 newTargetValue[i] = targetValue[i];
             }
         }
-        if (hashMap == ophashCB) {
+        else if (hashMap == ophashCB) {
             newTargetValue = new Boolean[8]; // Assuming the length is always 6 for ophashB
             for (int i = 0; i < 6; i++) {
                 newTargetValue[i] = targetValue[i];
