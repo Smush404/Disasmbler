@@ -31,7 +31,7 @@ public class Main {
 
         //Setup
         try { //puting file into methods
-            f = new File("src/main/java/org/me/testI.txt.machine");
+            f = new File("src/main/java/org/me/testD.txt.machine");
             m = new Methods(f);
         } catch (FileNotFoundException e){System.out.println("No file found");}
 
@@ -64,19 +64,23 @@ public class Main {
             switch (op) {
                 case "R":
                      m.getOP(codeLine.get(0, 12), "R");
-                     sb.append(m.bitToReg(codeLine.get(12, 17)));
+                     sb.append(m.bitToReg(codeLine.get(12, 17),false));
                     break;
                 case "B":
                     break;
                 case "I":
                     sb.append(m.getOP(codeLine.get(0, 11), "I")); //op 11
-                    sb.append(m.bitToReg(codeLine.get(23, 28)));// Rd 5
-                    sb.append(m.bitToReg(codeLine.get(12, 17))); //Rn 5
-                    sb.append(m.bitToImm(codeLine.get(28, 33))); // immm
+                    sb.append(m.bitToReg(codeLine.get(27, 34),true));// Rd 5
+                    sb.append(m.bitToReg(codeLine.get(23, 28),false)); //Rn 5
+                    sb.append(m.bitToImm(codeLine.get(12, 22))); // immm
                     break;
                 case "CB":
                     break;
                 case "D":
+                 sb.append(m.getOP(codeLine.get(0, 11), "I")); //op 11
+                    sb.append(m.bitToReg(codeLine.get(27, 34),true));// Rt 5
+                    sb.append(m.bitToReg(codeLine.get(23, 28),false)); //Rn 5
+                    sb.append(m.bitToImm(codeLine.get(12, 22))); // immm
                     break;
             }
             sb.append("\n");

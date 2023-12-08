@@ -184,8 +184,9 @@ public class Methods extends BitSet {
             }
         } 
         else if (hashMap == ophashR || hashMap == ophashD) {
-            newTargetValue = new Boolean[10]; // Assuming the length is always 6 for ophashB
-            for (int i = 0; i < 6; i++) {
+            newTargetValue = new Boolean[9]; // Assuming the length is always 6 for ophashB
+            for (int i = 0; i < 9; i++) {
+              
                 newTargetValue[i] = targetValue[i];
             }
         }
@@ -195,15 +196,17 @@ public class Methods extends BitSet {
                 newTargetValue[i] = targetValue[i];
             }
         }
+        
+        else {
+            newTargetValue = targetValue;
+        }
+
         // if (hashMap == ophashIW) {
         //     newTargetValue = new Boolean[9]; // Assuming the length is always 6 for ophashB
         //     for (int i = 0; i < 6; i++) {
         //         newTargetValue[i] = targetValue[i];
         //     }
         // }
-        else {
-            newTargetValue = targetValue;
-        }
     
         for (Boolean[] value : hashMap.values()) {
             if (Arrays.equals(value, newTargetValue)) {
@@ -250,42 +253,43 @@ public class Methods extends BitSet {
 
         return null;
     }
+    int length;
     //binary math
-    public String bitToReg(BitSet bitSet) {
-
-        Boolean[] boolList = new Boolean[5];
-        int total = 0;
-
-        for (int i = 0; i < boolList.length; i++) {
-            boolList[i] = bitSet.get(i);
+    public String bitToReg(BitSet bitSet, boolean end) {
+        if(end){
+            length = bitSet.length();
+        }else{
+            length = bitSet.length()-1;
         }
+        printBitSet(bitSet);
+ StringBuilder binaryRepresentation = new StringBuilder();
 
-        for (int i = 0; i < boolList.length; i++){
-            if(boolList[i].equals(true)){
-                total += (int) Math.pow(2, i);
-            }
+        for (int i = 0; i < length; i++) {
+            binaryRepresentation.append(bitSet.get(i) ? "1" : "0");
         }
-
-        return " X" + total;
+    
+        int decimalValue = Integer.parseInt(binaryRepresentation.toString(), 2);
+        if(decimalValue==31){decimalValue=0;}
+    
+        return " X" + decimalValue;
     }
-    // binary math 
     public String bitToImm(BitSet bitSet) {
-        Boolean[] boolList = new Boolean[12];
-        int total = 0;
-    
-        for (int i = 0; i < boolList.length; i++) {
-            boolList[i] = bitSet.get(i);
-            System.out.print(boolList[i] + " ");
+        StringBuilder binaryRepresentation = new StringBuilder();
+
+        for (int i = 0; i < bitSet.length(); i++) {
+            binaryRepresentation.append(bitSet.get(i) ? "1" : "0");
         }
     
-        for (int i = 0; i < boolList.length; i++) {
-            if (boolList[i].equals(true)) {
-                total = (total << 1) | 1;  // Shift existing bits to the left and add 1
-            } else {
-                total = total << 1;  // Only shift existing bits to the left
-            }
-        }
+        int decimalValue = Integer.parseInt(binaryRepresentation.toString(), 2);
     
-        return " #" + total;
+        return " #" + decimalValue;
+    }
+
+public void printBitSet(BitSet bitSet) {
+        for (int i = 0; i < bitSet.length(); i++) {
+            boolean bit = bitSet.get(i);
+            System.out.print(bit ? "1" : "0");
+        }
+        System.out.println();  // Move to the next line after printing the bits
     }
 }
