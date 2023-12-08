@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.BitSet;
+import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class Main {
@@ -31,7 +32,10 @@ public class Main {
 
         //Setup
         try { //puting file into methods
-            f = new File("src/main/java/org/me/testD.txt.machine");
+            //Scanner sc = new Scanner(System.in);
+            //f = new File(sc.nextLine());
+            //sc.close();
+            //f = new File("src/main/java/org/me/testI.txt.machine");
             m = new Methods(f);
         } catch (FileNotFoundException e){System.out.println("No file found");}
 
