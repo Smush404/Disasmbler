@@ -48,7 +48,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         String op = null;
 
-        for(int i = 0; i < bitList.length(); i = i + 33) {
+        for(int i = 0; i < bitList.size(); i = i + 33) {
             BitSet codeLine = bitList.get(i, i + 33);
             op = m.getType(codeLine.get(0, 12));
             System.out.println(op);
