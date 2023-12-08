@@ -12,7 +12,22 @@ public class Main {
 
         File f;
         Methods m = null;
-        
+
+        /*
+        testI = ADDI X0, X2, #15
+        testB:
+            B label1
+            label1:
+        testR = ADD X4, X2, X16
+        testD:
+            SUBI SP, SP, #8
+            STUR X5, [SP, #0]
+            LDUR X5, [SP, #0]
+            ADDI SP, SP, #8
+        testCB:
+            CBZ X0, label1
+            label1:
+         */
 
         //Setup
         try { //puting file into methods
@@ -57,7 +72,7 @@ public class Main {
                     sb.append(m.getOP(codeLine.get(0, 11), "I")); //op 11
                     sb.append(m.bitToReg(codeLine.get(23, 28)));// Rd 5
                     sb.append(m.bitToReg(codeLine.get(12, 17))); //Rn 5
-                    sb.append(m.bitToImm(codeLine.get(12, 22))); // immm
+                    sb.append(m.bitToImm(codeLine.get(28, 33))); // immm
                     break;
                 case "CB":
                     break;
