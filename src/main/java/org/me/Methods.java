@@ -46,7 +46,6 @@ public class Methods extends BitSet {
         for(int i = 0; i < 32; i++) {
             System.out.print(((Boolean) bitSet.get(i)).compareTo(false));
         }
-
         return bitSet;
     }
 
