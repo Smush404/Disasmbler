@@ -1,11 +1,10 @@
 package org.me;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.HashMap;
+import java.util.*;
 
 public class Methods extends BitSet {
 
@@ -161,11 +160,11 @@ public class Methods extends BitSet {
             boolList[i] = bitSet.get(i);
         }
     
-        System.out.print("\n");
-    
-        for (int i = 0; i < 10; i++) {
-            System.out.print(boolList[i] + " ");
-        }
+        System.out.println();
+
+//        for (int i = 0; i < 10; i++) {
+//            System.out.print(boolList[i] + " ");
+//        }
     
         if (containsValueInHashMap(ophashB, boolList)) {return "B";}
         if (containsValueInHashMap(ophashR, boolList)) {return "R";}
@@ -213,6 +212,80 @@ public class Methods extends BitSet {
             }
         }
         return false;
+    }
+
+    public String getOP(BitSet bitSet, String type) {
+
+        Boolean[] boolList = new Boolean[10];
+
+        for (int i = 0; i < boolList.length; i++) {
+            boolList[i] = bitSet.get(i);
+        }
+
+        HashMap<String, Boolean[]> h = null;
+        switch (type) {
+            case "R":
+                h = ophashR;
+                break;
+            case "B":
+                h = ophashB;
+                break;
+            case "I":
+                h = ophashI;
+                break;
+            case "CB":
+                h = ophashCB;
+                break;
+            case "D":
+                h = ophashD;
+                break;
+        }
+
+        Set<Map.Entry<String, Boolean[]>> set = h.entrySet();
+
+        for (Map.Entry<String, Boolean[]> entry : h.entrySet()) {
+            if (Arrays.equals(boolList, entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+
+        return null;
+    }
+
+    public String bitToReg(BitSet bitSet) {
+
+        Boolean[] boolList = new Boolean[5];
+        int total = 0;
+
+        for (int i = 0; i < boolList.length; i++) {
+            boolList[i] = bitSet.get(i);
+        }
+
+        for (int i = 0; i < boolList.length; i++){
+            if(boolList[i].equals(true)){
+                total += (int) Math.pow(2, i);
+            }
+        }
+
+        return "X" + total;
+    }
+
+    public String bitToImm(BitSet bitSet) {
+
+        Boolean[] boolList = new Boolean[12];
+        int total = 0;
+
+        for (int i = 0; i < boolList.length; i++) {
+            boolList[i] = bitSet.get(i);
+        }
+
+        for (int i = 0; i < boolList.length; i++){
+            if(boolList[i].equals(true)){
+                total += (int) Math.pow(2, i);
+            }
+        }
+
+        return " #" + total;
     }
 
 }

@@ -16,7 +16,7 @@ public class Main {
 
         //Setup
         try { //puting file into methods
-            f = new File("src/main/java/org/me/testB.txt.machine");
+            f = new File("src/main/java/org/me/test.txt.machine");
             m = new Methods(f);
         } catch (FileNotFoundException e){System.out.println("No file found");}
 
@@ -48,12 +48,16 @@ public class Main {
 
             switch (op) {
                 case "R":
-                    // sb.append(m.getOP(codeLine.get(0, 12)));
-                    // sb.append(m.bitToReg(codeLine.get(12, 17)));
+                     m.getOP(codeLine.get(0, 12), "R");
+                     sb.append(m.bitToReg(codeLine.get(12, 17)));
                     break;
                 case "B":
                     break;
                 case "I":
+                    sb.append(m.getOP(codeLine.get(0, 11), "I")); //op 11
+                    sb.append(m.bitToReg(codeLine.get(23, 28)));// Rd 5
+                    sb.append(m.bitToReg(codeLine.get(12, 17))); //Rn 5
+                    sb.append(m.bitToImm(codeLine.get(28, 33))); // immm
                     break;
                 case "CB":
                     break;
