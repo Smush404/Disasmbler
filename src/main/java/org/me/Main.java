@@ -57,7 +57,7 @@ public class Main {
                     sb.append(m.getOP(codeLine.get(0, 11), "I")); //op 11
                     sb.append(m.bitToReg(codeLine.get(23, 28)));// Rd 5
                     sb.append(m.bitToReg(codeLine.get(12, 17))); //Rn 5
-                    sb.append(m.bitToImm(codeLine.get(28, 33))); // immm
+                    sb.append(m.bitToImm(codeLine.get(12, 22))); // immm
                     break;
                 case "CB":
                     break;

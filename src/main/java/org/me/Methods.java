@@ -250,7 +250,7 @@ public class Methods extends BitSet {
 
         return null;
     }
-
+    //binary math
     public String bitToReg(BitSet bitSet) {
 
         Boolean[] boolList = new Boolean[5];
@@ -268,26 +268,24 @@ public class Methods extends BitSet {
 
         return " X" + total;
     }
-
+    // binary math 
     public String bitToImm(BitSet bitSet) {
-
         Boolean[] boolList = new Boolean[12];
         int total = 0;
-
+    
         for (int i = 0; i < boolList.length; i++) {
             boolList[i] = bitSet.get(i);
             System.out.print(boolList[i] + " ");
         }
-
-
-
-        for (int i = 0; i < boolList.length; i++){
-            if(boolList[i].equals(true)){
-                total += (int) Math.pow(2, i);
+    
+        for (int i = 0; i < boolList.length; i++) {
+            if (boolList[i].equals(true)) {
+                total = (total << 1) | 1;  // Shift existing bits to the left and add 1
+            } else {
+                total = total << 1;  // Only shift existing bits to the left
             }
         }
-
+    
         return " #" + total;
     }
-
 }
