@@ -267,7 +267,7 @@ public class Methods extends BitSet {
             }
         }
 
-        return "X" + total;
+        return " X" + total;
     }
 
     public String bitToImm(BitSet bitSet) {
@@ -277,7 +277,10 @@ public class Methods extends BitSet {
 
         for (int i = 0; i < boolList.length; i++) {
             boolList[i] = bitSet.get(i);
+            System.out.print(boolList[i] + " ");
         }
+
+
 
         for (int i = 0; i < boolList.length; i++){
             if(boolList[i].equals(true)){
