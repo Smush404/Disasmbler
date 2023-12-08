@@ -108,10 +108,10 @@ public class Methods extends BitSet {
         ophashR.put("ORR", new Boolean[]{true, false, true, false, true, false, true, false, false, false, false});// "10101010000" R
         ophashI.put("ORRI", new Boolean[]{true, false, true, true, false, false, true, false, false, false, false});// "1011001000" I
         ophashR.put("PRNL", new Boolean[]{true, true, true, true, true, true, true, true, true, false, false});// "11111111100" R
-         ophashR.put("PRNT",  new Boolean[]{true, true, true, true,true,true,true,true,true,false,true,});//0b11111111101 R
-         ophashR.put("SDIV",  new Boolean[]{true, false, false, true, true, false, true, false, true, true, false}); //0b10011010110 R
-         ophashR.put("SMULH",  new Boolean[]{true, false, false, true, true, false, true, true, false, true, false}); //0b10011011010 R
-         ophashR.put("STUR",  new Boolean[]{true, true, true, true, true, false, false, false, false, false, false}); //0b11111000000 R
+        ophashR.put("PRNT",  new Boolean[]{true, true, true, true,true,true,true,true,true,false,true,});//0b11111111101 R
+        ophashR.put("SDIV",  new Boolean[]{true, false, false, true, true, false, true, false, true, true, false}); //0b10011010110 R
+        ophashR.put("SMULH",  new Boolean[]{true, false, false, true, true, false, true, true, false, true, false}); //0b10011011010 R
+        ophashR.put("STUR",  new Boolean[]{true, true, true, true, true, false, false, false, false, false, false}); //0b11111000000 R
         ophashD.put("STURB", new Boolean[]{false, false, true, false, false, false, false, false, false, false, false});// "0b00111000000" D
         ophashR.put("STURD", new Boolean[]{true, true, true, false, false, false, false, false, false, false, false});// "0b11111100000" R
         ophashD.put("STURH", new Boolean[]{false, false, false, false, false, false, false, false, false, false, false});// "0b01111000000" D
