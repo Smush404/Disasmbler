@@ -33,7 +33,9 @@ public class Main {
         //Setup
         try { //puting file into methods
             //Scanner sc = new Scanner(System.in);
-            //f = new File(sc.nextLine());
+            //if(args[0].equals(null)){}
+            //f = new File(args[0]);
+            //System.out.print(args.toString());
             //sc.close();
             f = new File("src/main/java/org/me/testI.txt.machine");
             m = new Methods(f);
