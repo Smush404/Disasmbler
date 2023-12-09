@@ -1,98 +1,233 @@
 package org.me;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.BitSet;
-import java.util.Scanner;
-import java.util.StringJoiner;
 
-public class Main {
+import java.io.*;
+import java.util.HashMap;
+
+public class Main{
+    public static int totalCount = 1;
+    public static HashMap<Integer, String> opHash = new HashMap<>();
+    private static void buildHash() {
+        opHash.put(0b10001011000, "ADD");
+        opHash.put(0b1001000100, "ADDI");
+        opHash.put(0b10001010000, "AND");
+        opHash.put(0b1001001000, "ANDI");
+        opHash.put(0b000101, "B");
+        opHash.put(0b01010100, "B.");
+        opHash.put(0b100101, "BL");
+        opHash.put(0b11010110000, "BR");
+        opHash.put(0b10110101, "CBNZ");
+        opHash.put(0b10110100, "CBZ");
+        opHash.put(0b11001010000, "EOR");
+        opHash.put(0b1101001000, "EORI");
+        opHash.put(0b11111000010, "LDUR");
+        opHash.put(0b11010011011, "LSL");
+        opHash.put(0b11010011010, "LSR");
+        opHash.put(0b10101010000, "ORR");
+        opHash.put(0b1011001000, "ORRI");
+        opHash.put(0b11111000000, "STUR");
+        opHash.put(0b11001011000, "SUB");
+        opHash.put(0b1101000100, "SUBI");
+        opHash.put(0b1111000100, "SUBIS");
+        opHash.put(0b11101011000, "SUBS");
+        opHash.put(0b10011011000, "MUL");
+        opHash.put(0b11111111101, "PRNT");
+        opHash.put(0b11111111100, "PRNL");
+        opHash.put(0b11111111110, "DUMP");
+        opHash.put(0b11111111111, "HALT");
+
+    }
+    
+    public static HashMap<Integer, String> conditions = new HashMap<>();
+    private static void buildCondition() {
+        conditions.put(0x0, "EQ");
+        conditions.put(0x1, "NE");
+        conditions.put(0x2, "HS");
+        conditions.put(0x3, "LO");
+        conditions.put(0x4, "MI");
+        conditions.put(0x5, "PL");
+        conditions.put(0x6, "VS");
+        conditions.put(0x7, "VC");
+        conditions.put(0x8, "HI");
+        conditions.put(0x9, "LS");
+        conditions.put(0xa, "GE");
+        conditions.put(0xb, "LT");
+        conditions.put(0xc, "GT");
+        conditions.put(0xd, "LE");
+    }
+    
+    
+    
     public static void main(String[] args) {
+        
+        buildHash();
+        buildCondition();
 
-        File f;
-        Methods m = null;
+        try {
+            File f = new File(args[0]);
+            DataInputStream instruction = new DataInputStream(new BufferedInputStream(new FileInputStream(f)));
+            StringBuilder codeLineString = new StringBuilder();
+            while(instruction.available() >= 4){
+                
+                byte byte1 = instruction.readByte();
+                int byte1Int = (byte1 & 0xFF) << 24;
+                
+                byte byte2 = instruction.readByte();
+                int byte2Int = (byte2 & 0xFF) << 16;
+                
+                byte byte3 = instruction.readByte();
+                int byte3Int = (byte3 & 0xFF) << 8;
+                
+                byte byte4 = instruction.readByte();
+                int byte4Int = byte4 & 0xFF;
 
-        /*
-        testI = ADDI X0, X2, #15
-        testB:
-            B label1
-            label1:
-        testR = ADD X4, X2, X16
-        testD:
-            SUBI SP, SP, #8
-            STUR X5, [SP, #0]
-            LDUR X5, [SP, #0]
-            ADDI SP, SP, #8
-        testCB:
-            CBZ X0, label1
-            label1:
-         */
+                int codeLine = byte1Int + byte2Int + byte3Int + byte4Int;
 
-        //Setup
-        try { //puting file into methods
-            //Scanner sc = new Scanner(System.in);
-            //if(args[0].equals(null)){}
-            //f = new File(args[0]);
-            //System.out.print(args.toString());
-            //sc.close();
-            f = new File("src/main/java/org/me/testI.txt.machine");
-            m = new Methods(f);
-        } catch (FileNotFoundException e){System.out.println("No file found");}
-
-        byte[] bytelist = null;
-
-        try { //filling the list with bytes from file
-            bytelist = m.reader();
-        } catch (IOException | NullPointerException e){e.printStackTrace();}
-
-        System.out.println(m.printBytes(bytelist)); // checking bytes
-
-        BitSet bitList = m.byteToBit(bytelist);// gets bit list
-
-        StringBuilder sb = new StringBuilder();
-        String op = null;
-
-        for(int i = 0; i < bitList.size(); i = i + 33) {
-            BitSet codeLine = bitList.get(i, i + 33);
-            op = m.getType(codeLine.get(0, 12));
-            System.out.println(op);
-
-            try {
-                op.equals(null);
-            } catch (NullPointerException e) {
-                System.out.println("ERROR: OP code not found");
-                e.printStackTrace();
-                System.exit(1);
+                runner(codeLine, codeLineString);
+                codeLineString.append("\n");
             }
 
-            switch (op) {
-                case "R":
-                     m.getOP(codeLine.get(0, 12), "R");
-                     sb.append(m.bitToReg(codeLine.get(12, 17),false));
-                    break;
-                case "B":
-                    break;
-                case "I":
-                    sb.append(m.getOP(codeLine.get(0, 11), "I")); //op 11
-                    sb.append(m.bitToReg(codeLine.get(27, 34),true));// Rd 5
-                    sb.append(m.bitToReg(codeLine.get(23, 28),false)); //Rn 5
-                    sb.append(m.bitToImm(codeLine.get(12, 22))); // immm
-                    break;
-                case "CB":
-                    break;
-                case "D":
-                 sb.append(m.getOP(codeLine.get(0, 11), "I")); //op 11
-                    sb.append(m.bitToReg(codeLine.get(27, 34),true));// Rt 5
-                    sb.append(m.bitToReg(codeLine.get(23, 28),false)); //Rn 5
-                    sb.append(m.bitToImm(codeLine.get(12, 22))); // immm
-                    break;
+            //final print
+            System.out.println(codeLineString.toString());
+        }
+        catch (IOException e){
+            System.out.println("ERROR: File Not Found");
+            e.printStackTrace();
+        }
+    }
+    
+
+    private static void runner(int instruction, StringBuilder codeLineString){
+
+        int RDop = (instruction >> 21) & 0x7FF;
+        int Iop = (instruction >> 22) & 0x3FF;
+        int CBop = (instruction >> 24) & 0xFF;
+        int Bop = (instruction >> 26) & 0x3F;
+        
+        //R/D - type
+        if(opHash.containsKey(RDop)){
+            codeLineString.append(opHash.get(RDop));
+
+            if((RDop == 0b10001011000) || (RDop == 0b10001010000) || (RDop == 0b11001010000) || (RDop == 0b10101010000) || (RDop == 0b11001011000) || (RDop == 0b11101011000) || (RDop == 0b10011011000)){
+
+                int rd = instruction & 0x1F;
+                String rdString = "X" + rd;
+
+                int rn = instruction >> 5 & 0x1F;
+                String rnString = "X" + rn;
+                
+                int rm = instruction >> 16 & 0x1F;
+                String rmString = "X" + rm;
+              
+
+                codeLineString.append(" " + rdString + ", " + rnString + ", " + rmString);
             }
-            sb.append("\n");
+
+            else if(RDop == 0b11010110000){
+
+                int rn = instruction >> 5 & 0x1F;
+
+                codeLineString.append(" X" + rn);
+            }
+
+            else if((RDop == 0b11010011011) || (RDop == 0b11010011010)) {
+
+                int rd = instruction & 0x1F;
+                String rdString = "X" + rd;
+                
+                int rn = instruction >> 5 & 0x1F;
+                String rnString = "X" + rn;
+
+
+                int shamt = instruction >> 10 & 0x3F;
+                if(shamt >= 32){
+                    shamt -= 64;
+                }
+
+                codeLineString.append(" " + rdString + ", " + rnString + ", #" + shamt);
+            }
+
+            else if(RDop == 0b11111111101){
+
+                int rd = instruction & 0x1F;
+                String rdString = "X" + rd;
+
+                codeLineString.append(" " + rdString);
+            }
+
+            else if((RDop == 0b11111000010) || (RDop == 0b11111000000)){
+
+                int Rt = instruction & 0x1F;
+                String RtString = "X" + Rt;
+
+
+                int rn = instruction >> 5 & 0x1F;
+                String rnString = "X" + rn;
+                
+                int DTAddr = instruction >> 12 & 0x1FF;
+                if(DTAddr >= 256){
+                    DTAddr -= 512;
+                }
+
+                codeLineString.append(" " + RtString + ", [" + rnString + ", #" + DTAddr + "]");
+            }
+            
         }
 
-        System.out.println(sb.toString());
+        //Type I
+        else if(opHash.containsKey(Iop)){
+            codeLineString.append(opHash.get(Iop));
+
+            int rd = instruction & 0x1F;
+            String rdString = "X" + rd;
+
+            int rn = instruction >> 5 & 0x1F;
+            String rnString = "X" + rn;
+
+            int ALUImm = instruction >> 10 & 0xFFF;
+
+            if(ALUImm >= 2048){
+                ALUImm -= 4096;
+            }
+
+            codeLineString.append(" " + rdString + ", " + rnString + ", #" + ALUImm);
+        }
+        
+        //CB/B -  type
+        else if(opHash.containsKey(CBop)){
+            codeLineString.append(opHash.get(CBop));
+
+            if(CBop == 0b01010100){
+                int cond = instruction & 0x1F;
+                String condString = conditions.get(cond);
+                codeLineString.append(condString);
+            }
+
+            int Address = instruction >> 5 & 0x7FFFF;
+
+            if(Address >= 262144){
+                Address -= 524288;
+            }
+
+            codeLineString.append(" Label" + (totalCount + Address));
+        }
+
+        
+        //attempt at Branch labels lol
+        else if(opHash.containsKey(Bop)){
+            int Address = instruction & 0x3FFFFFF;
+
+            if(Address >= 33554432){
+                Address -= 67108864;
+            }
+
+            codeLineString.append(opHash.get(Bop) + " Label" + (totalCount + Address));
+        }
+        
+        else{
+            System.out.println("Opcode not found --> Error with program");
+        }
+        totalCount++;
 
     }
 }
