@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.HashMap;
 
 public class Main{
-    public static int totalCount = 1;
     public static HashMap<Integer, String> opHash = new HashMap<>();
     private static void buildHash() {
         opHash.put(0b10001011000, "ADD");
@@ -55,8 +54,8 @@ public class Main{
         conditions.put(0xc, "GT");
         conditions.put(0xd, "LE");
     }
-    
-    
+
+    public static int totalCount = 1;
     
     public static void main(String[] args) {
         
